@@ -15,7 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Wrapped, Anytime",
+  title: "Sound Track, Anytime",
   description: "Your Spotify stats, whenever you want them.",
 };
 

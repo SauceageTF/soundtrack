@@ -92,7 +92,7 @@ function Card({
         cacheBust: true,
       });
       const link = document.createElement("a");
-      link.download = `wrapped-anytime-${name}.png`;
+      link.download = `soundtrack-${name}.png`;
       link.href = dataUrl;
       link.click();
     } finally {
@@ -112,7 +112,7 @@ function Card({
       >
         <div className="flex items-center justify-between px-6 pt-6">
           <p className="font-display italic text-paper text-base">
-            Wrapped, <span style={{ color: accent }}>anytime.</span>
+            Sound Track, <span style={{ color: accent }}>anytime.</span>
           </p>
           <p className="font-sans text-[9px] tracking-[0.25em] uppercase text-muted text-right leading-tight">
             {rangeLabel}
@@ -129,7 +129,7 @@ function Card({
             style={{ background: "color-mix(in srgb, " + accent + " 30%, var(--line))" }}
           />
           <p className="font-sans text-[10px] tracking-[0.15em] text-muted whitespace-nowrap">
-            wrapped-anytime.app
+            soundtrack.app
           </p>
         </div>
       </div>

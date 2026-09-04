@@ -13,7 +13,7 @@ export default async function Home() {
         </p>
 
         <h1 className="font-display italic text-[15vw] sm:text-8xl leading-[0.9] text-paper mb-8">
-          Wrapped,
+          Sound Track,
           <br />
           <span className="text-amber not-italic">anytime.</span>
         </h1>

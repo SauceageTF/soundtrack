@@ -1,4 +1,4 @@
-# Wrapped, Anytime
+# Sound Track, Anytime
 
 Your Spotify stats — top tracks, top artists, genre breakdown, and a
 one-click playlist built from your own history — without waiting for
