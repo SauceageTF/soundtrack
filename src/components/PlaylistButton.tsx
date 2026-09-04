@@ -37,7 +37,7 @@ export default function PlaylistButton({ timeRange }: { timeRange: TimeRange }) 
           ? "Building playlist…"
           : state === "done"
           ? "Built another →"
-          : "Generate playlist from these tracks"}
+          : "Generate playlist (top tracks + similar)"}
       </button>
 
       {state === "done" && url && (

@@ -58,6 +58,58 @@ export function getTopTracks(accessToken: string, timeRange: TimeRange, limit = 
   ) as Promise<{ items: SpotifyTrack[] }>;
 }
 
+export interface SpotifyPlaylist {
+  id: string;
+  name: string;
+  owner: { id: string };
+}
+
+const DISCOVERY_PLAYLIST_NAMES = [/discover weekly/i, /release radar/i];
+
+// Spotify's own algorithmic playlists (Discover Weekly, Release Radar) live
+// in the user's library as regular playlists owned by the "spotify" account.
+// There's no dedicated endpoint for them, so we page through the user's
+// playlists looking for a name match.
+export async function findDiscoveryPlaylists(
+  accessToken: string
+): Promise<SpotifyPlaylist[]> {
+  const found: SpotifyPlaylist[] = [];
+  let path: string | null = "/me/playlists?limit=50";
+
+  for (let page = 0; path && page < 4; page++) {
+    const data = (await spotifyFetch(accessToken, path)) as {
+      items: SpotifyPlaylist[];
+      next: string | null;
+    };
+    for (const playlist of data.items) {
+      if (
+        playlist.owner?.id === "spotify" &&
+        DISCOVERY_PLAYLIST_NAMES.some((re) => re.test(playlist.name))
+      ) {
+        found.push(playlist);
+      }
+    }
+    path = data.next ? data.next.replace(BASE_URL, "") : null;
+  }
+
+  return found;
+}
+
+export async function getPlaylistTracks(
+  accessToken: string,
+  playlistId: string,
+  limit = 20
+) {
+  const data = (await spotifyFetch(
+    accessToken,
+    `/playlists/${playlistId}/tracks?limit=${limit}&fields=items(track(id,name,artists,album,external_urls,uri))`
+  )) as { items: { track: SpotifyTrack | null }[] };
+
+  return data.items
+    .map((item) => item.track)
+    .filter((track): track is SpotifyTrack => track !== null);
+}
+
 export function getMe(accessToken: string) {
   return spotifyFetch(accessToken, "/me") as Promise<{
     id: string;

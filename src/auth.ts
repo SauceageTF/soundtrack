@@ -24,6 +24,7 @@ const SCOPES = [
   "user-read-email",
   "user-top-read",
   "user-read-recently-played",
+  "playlist-read-private",
   "playlist-modify-public",
   "playlist-modify-private",
 ].join(" ");
