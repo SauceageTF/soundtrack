@@ -17,6 +17,7 @@ export interface SpotifyTrack {
   album: { images: { url: string }[]; name: string };
   external_urls: { spotify: string };
   uri: string;
+  popularity?: number;
 }
 
 async function spotifyFetch(
@@ -56,6 +57,21 @@ export function getTopTracks(accessToken: string, timeRange: TimeRange, limit = 
     accessToken,
     `/me/top/tracks?time_range=${timeRange}&limit=${limit}`
   ) as Promise<{ items: SpotifyTrack[] }>;
+}
+
+// Finds other tracks by an artist the user already likes, as a stand-in for
+// real "similar music" recommendations (Spotify removed the Recommendations
+// and Related Artists endpoints for new apps in Nov 2024).
+export async function searchTracksByArtist(
+  accessToken: string,
+  artistName: string,
+  limit = 10
+) {
+  const data = (await spotifyFetch(
+    accessToken,
+    `/search?type=track&limit=${limit}&q=${encodeURIComponent(`artist:"${artistName}"`)}`
+  )) as { tracks: { items: SpotifyTrack[] } };
+  return data.tracks.items;
 }
 
 export interface SpotifyPlaylist {
@@ -102,11 +118,11 @@ export async function getPlaylistTracks(
 ) {
   const data = (await spotifyFetch(
     accessToken,
-    `/playlists/${playlistId}/tracks?limit=${limit}&fields=items(track(id,name,artists,album,external_urls,uri))`
-  )) as { items: { track: SpotifyTrack | null }[] };
+    `/playlists/${playlistId}/items?limit=${limit}&fields=items(item(id,name,artists,album,external_urls,uri))`
+  )) as { items: { item: SpotifyTrack | null }[] };
 
   return data.items
-    .map((item) => item.track)
+    .map((entry) => entry.item)
     .filter((track): track is SpotifyTrack => track !== null);
 }
 
@@ -133,17 +149,16 @@ export function getGenreCounts(artists: SpotifyArtist[]) {
 
 export async function createPlaylistFromTracks(
   accessToken: string,
-  userId: string,
   name: string,
   description: string,
   trackUris: string[]
 ) {
-  const playlist = await spotifyFetch(accessToken, `/users/${userId}/playlists`, {
+  const playlist = await spotifyFetch(accessToken, `/me/playlists`, {
     method: "POST",
     body: JSON.stringify({ name, description, public: false }),
   });
 
-  await spotifyFetch(accessToken, `/playlists/${playlist.id}/tracks`, {
+  await spotifyFetch(accessToken, `/playlists/${playlist.id}/items`, {
     method: "POST",
     body: JSON.stringify({ uris: trackUris }),
   });
