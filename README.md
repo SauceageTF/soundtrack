@@ -15,6 +15,24 @@ Tailwind CSS, and Recharts.
 - One-click playlist generator that writes a real playlist to your account
 - Downloadable "share card" image (rendered client-side, no server needed)
 
+## User limit (Spotify Development Mode)
+
+This app runs in Spotify's "Development Mode," which as of February 2026
+caps every app at **5 authorized users, total** — no exceptions for
+non-commercial or small projects. Anyone not explicitly added will see an
+"authorization" error from Spotify before the app even loads for them.
+
+The usual next step, Extended Quota Mode, no longer helps here: since May
+2025 it's restricted to registered organizations with an existing 250,000+
+monthly active users — a bar no new individual project can ever clear (you
+can't grow past 5 users to prove demand, and you can't get more users
+without already having grown). This is a widely-reported, unresolved gap
+in Spotify's developer policy, not something specific to this app.
+
+To add someone (up to 4 more, 5 total): Spotify Developer Dashboard → your
+app → **Settings** → **Users and Access** → **Add New User**, with the name
+and email tied to their Spotify account.
+
 ## Why no audio-feature "mood" analysis?
 
 Spotify deprecated the Audio Features, Audio Analysis, and Recommendations
