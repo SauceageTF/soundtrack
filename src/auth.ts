@@ -1,7 +1,7 @@
 import NextAuth, { customFetch } from "next-auth";
 import Spotify from "next-auth/providers/spotify";
 
-const CANONICAL_ORIGIN = (process.env.AUTH_URL ?? "http://127.0.0.1:3000").replace(/\/$/, "");
+const CANONICAL_ORIGIN = (process.env.AUTH_URL || "http://127.0.0.1:3000").replace(/\/$/, "");
 const CANONICAL_REDIRECT_URI = `${CANONICAL_ORIGIN}/api/auth/callback/spotify`;
 
 async function fetchWithCanonicalRedirectUri(
