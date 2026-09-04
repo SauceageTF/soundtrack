@@ -1,0 +1,50 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #121016;
+  --ink-raised: #1a1720;
+  --line: #2c2833;
+  --paper: #f4f1ea;
+  --amber: #e8a33d;
+  --violet: #9c8ff2;
+  --rose: #f2789a;
+  --mint: #5fd6b8;
+  --muted: #9b96a5;
+}
+
+@theme inline {
+  --color-ink: var(--ink);
+  --color-ink-raised: var(--ink-raised);
+  --color-line: var(--line);
+  --color-paper: var(--paper);
+  --color-amber: var(--amber);
+  --color-violet: var(--violet);
+  --color-rose: var(--rose);
+  --color-mint: var(--mint);
+  --color-muted: var(--muted);
+  --font-display: var(--font-fraunces);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--font-inter), Arial, Helvetica, sans-serif;
+}
+
+.tabular {
+  font-variant-numeric: tabular-nums;
+}
+
+.no-scrollbar {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+::selection {
+  background: var(--amber);
+  color: var(--ink);
+}
