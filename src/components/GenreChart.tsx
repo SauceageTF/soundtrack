@@ -21,8 +21,9 @@ export default function GenreChart({
   if (top.length === 0) {
     return (
       <p className="font-sans text-sm text-muted">
-        Genre data isn&apos;t available right now &mdash; Spotify restricts
-        this for apps that haven&apos;t been approved for extended access.
+        Genre data isn&apos;t available for this account yet &mdash; it
+        requires extended API access that we&apos;re in the process of
+        getting approved.
       </p>
     );
   }

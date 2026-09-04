@@ -19,9 +19,9 @@ export default async function Home() {
         </h1>
 
         <p className="font-sans text-lg text-muted max-w-md mb-12 leading-relaxed">
-          Spotify makes you wait until December. This doesn&apos;t. Top
-          tracks, top artists, genre breakdowns, and a playlist built from
-          your own history &mdash; whenever you want to look.
+          Your top tracks, top artists, genre breakdowns, and a playlist
+          built from your own listening history &mdash; on demand, whenever
+          you want to look.
         </p>
 
         <form
